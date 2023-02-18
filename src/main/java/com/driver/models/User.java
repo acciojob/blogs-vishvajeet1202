@@ -1,34 +1,41 @@
 package com.driver.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "Image")
-public class Image{
+@Table(name="user")
+public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String description;
-    private String dimensions;
+    private String username;
+    private String password;
+    private String firstName = "test";
+    private String lastName = "test";
 
-    @ManyToOne
+    //Mapping
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn
-    private Blog blog;
+    private List<Blog> blogList;
 
-    public Image() {
+    public User() {
+
     }
 
-    public Image(Blog blog, String description, String dimensions) {
-        this.description = description;
-        this.dimensions = dimensions;
-        this.blog = blog;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public Image(int id, String description, String dimensions, Blog blog) {
+    public User(int id, String username, String password, String firstName, String lastName, List<Blog> blogList) {
         this.id = id;
-        this.description = description;
-        this.dimensions = dimensions;
-        this.blog = blog;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.blogList = blogList;
     }
 
     public int getId() {
@@ -39,27 +46,43 @@ public class Image{
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getDimensions() {
-        return dimensions;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDimensions(String dimensions) {
-        this.dimensions = dimensions;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Blog getBlog() {
-        return blog;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setBlog(Blog blog) {
-        this.blog = blog;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 }
